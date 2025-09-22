@@ -32,6 +32,13 @@ async function initDb() {
     return client;
   }
 
+  if (cfg.dbClient === 'none') {
+    const noop = require('./noopClient');
+    client = await noop.connect();
+    Logger.warn('DB client set to none; running without a database', {});
+    return client;
+  }
+
   throw new Error(`Unsupported DB_CLIENT: ${cfg.dbClient}`);
 }
 

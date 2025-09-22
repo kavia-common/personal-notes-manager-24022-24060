@@ -26,16 +26,17 @@ Quick start
    npm start
 
 5. Open API docs
-   http://localhost:3000/docs
+   http://localhost:3001/docs
 
 Environment variables
 Create a .env file from .env.example. Do not commit secrets.
 
 Core vars:
 - NODE_ENV: development|production|test
-- PORT: Port to run the server (default 3000)
+- PORT: Port to run the server (default 3001)
 - HOST: Host to bind (default 0.0.0.0)
-- DB_CLIENT: mongo|sql (default: mongo)
+- DB_CLIENT: none|mongo|sql (default: none)
+  - none: starts the server without a database; readiness (/ready) will report not ready and all CRUD endpoints will return 503 until a DB is configured.
 - For Mongo:
   - MONGO_URI: Full Mongo connection string (e.g. mongodb://user:pass@host:27017/db)
   - MONGO_DB_NAME: Database name
@@ -87,6 +88,7 @@ src/
     index.js           DB initialization and provider selection
     mongoClient.js     Mongo connection and helpers
     sqlClient.js       SQL client (pg) and helpers
+    noopClient.js      No-op client for running without DB
   routes/
     index.js           Root router and health
     notes.routes.js    Notes API routes with validation

@@ -13,9 +13,11 @@ function getConfig() {
   const cfg = {
     nodeEnv: env.NODE_ENV || 'development',
     host: env.HOST || '0.0.0.0',
-    port: Number(env.PORT || 3000),
+    // Default to 3001 to match container readiness expectations
+    port: Number(env.PORT || 3001),
 
-    dbClient: (env.DB_CLIENT || 'mongo').toLowerCase(),
+    // Allow 'none' to run without a DB; avoids crashes when env vars are missing
+    dbClient: (env.DB_CLIENT || 'none').toLowerCase(),
 
     mongo: {
       uri: env.MONGO_URI,
