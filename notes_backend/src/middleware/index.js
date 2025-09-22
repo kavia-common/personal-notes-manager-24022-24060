@@ -1,4 +1,3 @@
-// This file will export middleware as the application grows
 module.exports = {
-  // Add your middleware here
+  // Export middleware collection here as app grows
 };
